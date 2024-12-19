@@ -1,9 +1,11 @@
 import random 
 from enum import Enum 
+/ класс измерения температуры
 class TemperatureUnit(Enum):
     Celsius ="C"
     Fahrenheit = "F"
     Kelvin = "K"
+/создание словаря 
 cities = {
     'Абакан' : random.randint(-10, 35),
     'Сорск' : random.randint(-10, 35),
@@ -14,18 +16,18 @@ cities = {
     'Абаза' : random.randint(-10, 35),
     'Черногорск' : random.randint(-10, 35)
 }
-def convert_temperature(celsius):
+def convert_temperature(celsius): / создание функции которая принимает температуру в градусах цельсия и возвращает кортеж с температурой в цельсии, фаренгейте и велльфине, округненным до оного или двух занков после запятой  
     fahrenheit = celsius * 9/5 + 32
     kelvin = celsius + 273.15
     return round(celsius, 1), round(fahrenheit, 1), round(kelvin, 2)
-def get_weather(city_name):
+def get_weather(city_name): / функция принимает название города и возвращает его температуру в разных единицах, если город судествует в словаре sities. если город не найден возвращается none 
     if city_name in cities:
         celsius = cities[city_name]
         return convert_temperature(celsius)
     else:
         return None
     filtered_cities =[]
-    def filter_cities(condition):
+    def filter_cities(condition): / функция фильтрует города в зависимости от переданного условия: +для городов с температурой виже 0 ,-для городов с температурой ниже 0ю если услове неверно возвращается none
         if condition not in ('+', '-'):
             return None
         filtered_cities = []
@@ -33,10 +35,10 @@ def get_weather(city_name):
             if (condition == '+' and temp > 0) or (condidion == '-' and temp <0):
                 filtered_cities.append([city, tep, TemperatureUnit.Celsius.value])
         return filtered_cities
-    def sort_cities(order='asc'):
+    def sort_cities(order='asc'): / функция сортирует города о возрастанию или убыванию в зависимомти от переданного параметра order
         sorted_cities = sorted(cities.items(), key=lambda: item: item[1], reverse=(order == 'desc'))
         return [[city, temp, TemperatureUnit.Celsius.value] for city, temp in sorted_cities]
-    if __name__ == "__main__":
+    if __name__ == "__main__": / тестирование кода 
         city_name = "Абакан"
         weather = get_weather(city_name)
         if weather: 
