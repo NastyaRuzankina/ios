@@ -1,0 +1,52 @@
+import random 
+from enum import Enum 
+class TemperatureUnit(Enum):
+    Celsius ="C"
+    Fahrenheit = "F"
+    Kelvin = "K"
+cities = {
+    'Абакан' : random.randint(-10, 35),
+    'Сорск' : random.randint(-10, 35),
+    'Усть-Абакан' : random.randint(-10, 35),
+    'Таштып' : random.randint(-10, 35),
+    'Боград' : random.randint(-10, 35),
+    'Копьево' : random.randint(-10, 35),
+    'Абаза' : random.randint(-10, 35),
+    'Черногорск' : random.randint(-10, 35)
+}
+def convert_temperature(celsius):
+    fahrenheit = celsius * 9/5 + 32
+    kelvin = celsius + 273.15
+    return round(celsius, 1), round(fahrenheit, 1), round(kelvin, 2)
+def get_weather(city_name):
+    if city_name in cities:
+        celsius = cities[city_name]
+        return convert_temperature(celsius)
+    else:
+        return None
+    filtered_cities =[]
+    def filter_cities(condition):
+        if condition not in ('+', '-'):
+            return None
+        filtered_cities = []
+        for city, temp in cities.items():
+            if (condition == '+' and temp > 0) or (condidion == '-' and temp <0):
+                filtered_cities.append([city, tep, TemperatureUnit.Celsius.value])
+        return filtered_cities
+    def sort_cities(order='asc'):
+        sorted_cities = sorted(cities.items(), key=lambda: item: item[1], reverse=(order == 'desc'))
+        return [[city, temp, TemperatureUnit.Celsius.value] for city, temp in sorted_cities]
+    if __name__ == "__main__":
+        city_name = "Абакан"
+        weather = get_weather(city_name)
+        if weather: 
+            print(f"Погода в {city_name}: {weather[0]}C, {weather[1]}F, {weather{2}}K")
+
+    hot_cities = folter_cities('+')
+    print(f"Города по температуре выше 0: {hot_cities}")
+
+    sorted_cities_asc = sort_cities('asc')
+    print (f"Города по температуре (возрастание): {sorted_cities_asc}")
+
+    sorted_cities_desc = sort_cities ('desc')
+    print (f"Города о температуре (убывание): {sorted_cities_desc}")
